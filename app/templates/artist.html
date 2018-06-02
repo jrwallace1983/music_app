@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <div class="container-fluid">
+            <h1>Enter Album</h1>
+        <div class="row">
+            <div class="col-md-4">
+                {{ wtf.quick_form(form) }}
+            </div>
+        </div>
+        <div class="jumbotron">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="{{ youtube.albumlink }}"></iframe>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <h1>Albums</h1>
+                {%for album in album %}
+                <div class="col-sm-3">
+                    <!-- Split button -->
+                    <div class="btn-group">
+                        <h1 data-toggle="dropdown">{{ album.albumname }}</h1>
+                             <ul class="dropdown-menu">
+                                {% for song in song %}
+                                    {% if song[0].albumname == album.albumname %}
+                                        <li><a href="#">{{ song[1].songname }}</a></li>
+                                    {% endif %}
+                                 {% endfor %}
+                            </ul>
+                    </div>
+                    <img id="{{ album.id}}" src="{{ album.albumlogo }}">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
